@@ -74,6 +74,25 @@ export class UserValidators {
         ]
     }
 
+    static login() {
+        return [
+            body('email', 'Email is required').isEmail().custom((email, { req }) => {
+                return User.findOne({ email: email }).then((user: any) => {
+                    if (user) {
+                        if (user.verified) {
+                            req.user = user;
+                            return true;
+                        } else {
+                            throw new Error('Please Verify the email.')
+                        }
+                    } else {
+                        throw new Error('User Not Exist')
+                    }
+                });
+            })
+        ]
+    }
+
     // static signup() {
     //     return [
     //         body('email', 'Email is Required').isEmail()

@@ -111,7 +111,26 @@ export class UserController {
         }
     }
 
+    static async login(req, res, next) {
+        let d = req.body;
+        const email = d.email;
+        const password = d.password;
+        const user = req.user;
 
+        try {
+            // await Utils.comparePassword({ plainPassword: password, encryptPassword: user.password });
+            if(password.trim()  != user.password.trim()){
+                throw new Error('Email & Password Does Not Match')
+            }
+            const data = { _id: user._id, email: user.email }
+            const token = Jwt.sign(data, getEnvironmentVariable().jwt_secret, { expiresIn: '120d' });
+            const response = { user: user, toke: token };
+            res.json(response)
+        } catch (e) {
+            next(e);
+        }
+
+    }
 
 
     // static async signup(req, res, next) {

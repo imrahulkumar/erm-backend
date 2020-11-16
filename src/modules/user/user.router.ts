@@ -56,6 +56,14 @@ class UserRouter {
             GlobalCheckErrorMiddleWare.checkError,
             UserController.signup)
 
+        // LOGIN USER
+        this.router.post('/login',
+            UserValidators.login(),
+            GlobalCheckErrorMiddleWare.checkError,
+            UserController.login)
+
+
+
         // //STEP 1 : To create a user using signup
         // this.router.post('/signup', UserValidators.signup(), GlobalCheckErrorMiddleWare.checkError, UserController.signup);
 
