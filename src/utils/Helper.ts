@@ -1,0 +1,1 @@
+export const signupObj = ['email','name','role','dob','password','companyName','address','newAddress']
