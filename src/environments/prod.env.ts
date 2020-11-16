@@ -1,7 +1,7 @@
 import { Environment } from './env'
 
 export const ProdEnvironment: Environment = {
-    db_url: "mongodb+srv://demo:demo@cluster0.cjcjs.mongodb.net/postWeb?retryWrites=true&w=majority",
+    db_url: "mongodb+srv://demo:demo@cluster0.cjcjs.mongodb.net/erm?retryWrites=true&w=majority",
     jwt_secret: "prodSecret",
     emailjs_com: {
         service_id: 'service_k65149f',
