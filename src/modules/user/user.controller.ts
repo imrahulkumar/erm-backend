@@ -120,7 +120,7 @@ export class UserController {
         try {
             // await Utils.comparePassword({ plainPassword: password, encryptPassword: user.password });
             if(password.trim()  != user.password.trim()){
-                throw new Error('Email & Password Does Not Match')
+                throw new Error(`Email & Password Does Not Match: ${password.trim()}  ${user.password.trim()} `)
             }
             const data = { _id: user._id, email: user.email }
             const token = Jwt.sign(data, getEnvironmentVariable().jwt_secret, { expiresIn: '120d' });
