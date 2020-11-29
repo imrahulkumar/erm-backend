@@ -7,19 +7,19 @@ export class UserValidators {
 
     static signup() {
         return [
-            body('email', 'Email is Requiredzz').isEmail()
+            body('email', 'Email is Required').isEmail()
                 .custom((emails, { req }) => {
                     return User.findOne({ email: emails }).then((user) => {
                         if (user) {
                             throw new Error('User Already Exist')
                         } else {
-                            return false;
+                            return true;
                         }
                     });
                 }),
             body('name', 'Name is required').isString(),
             body('role', 'Role is required').isString(),
-            body('dob', 'DOB is required').isDate(),
+            body('dob', 'DOB is required').isString(),
             body('address')
                 .custom((address, { req }) => {
                     if (!address) {
