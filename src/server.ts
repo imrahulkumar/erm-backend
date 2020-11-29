@@ -6,7 +6,7 @@ import { Jobs } from './jobs/Jobs';
 import CommentRouter from './modules/comment/comment.router';
 import PostRouter from './modules/post/post.router';
 import UserRouter from './modules/user/user.router';
-import Cors from 'cors'
+import * as Cors from 'cors'
 
 export class Server {
 
