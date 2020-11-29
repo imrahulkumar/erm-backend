@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "start-dev": "nodemon --exec ts-node src/index.ts",
-     "start-prod": "node dist/index.js",
-     "create-bundle": "tsc",
-     "start":"npm run create-bundle && npm run start-prod"
+    "start-dev": "nodemon --exec ts-node src/index.ts",
+    "start-prod": "node dist/index.js",
+    "create-bundle": "tsc",
+    "start": "npm run create-bundle && npm run start-prod"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +29,7 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
     "emailjs": "^3.3.0",
     "emailjs-com": "^2.6.3",
     "express": "^4.17.1",

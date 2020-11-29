@@ -6,6 +6,7 @@ import { Jobs } from './jobs/Jobs';
 import CommentRouter from './modules/comment/comment.router';
 import PostRouter from './modules/post/post.router';
 import UserRouter from './modules/user/user.router';
+import Cors from 'cors'
 
 export class Server {
 
@@ -27,9 +28,12 @@ export class Server {
         this.connectMongodb();
         this.configureBodyParser();
         Jobs.runRequiredJobs();
+        this.app.use(Cors);
+       
     }
 
     configureBodyParser() {
+        this.app.use(bodyParser.json({ limit: '50mb' }));
         this.app.use(bodyParser.urlencoded({ extended: true }))
     }
 
