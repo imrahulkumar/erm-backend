@@ -1,4 +1,4 @@
-import bodyParser = require('body-parser');
+import * as bodyParser  from 'body-parser';
 import * as  express from 'express';
 import * as mongoose from 'mongoose';
 import { getEnvironmentVariable } from './environments/env';
@@ -47,7 +47,8 @@ export class Server {
 
     configureBodyParser() {
         this.app.use(cors(this.options));
-        this.app.use(bodyParser.json({ limit: '50mb' }));
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.text());
         this.app.use(bodyParser.urlencoded({ extended: true }))
     }
 

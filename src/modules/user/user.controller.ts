@@ -16,6 +16,7 @@ export class UserController {
 
 
     static async signup(req, res, next) {
+        console.log(req.body)
         let d = req.body;
         let data = Picker.objPicker(d, signupObj);
 

@@ -8,12 +8,12 @@ export class UserValidators {
     static signup() {
         return [
             body('email', 'Email is Required').isEmail()
-                .custom((email, { req }) => {
-                    return User.findOne({ email: email }).then((user) => {
+                .custom((emails, { req }) => {
+                    return User.findOne({ email: emails }).then((user) => {
                         if (user) {
                             throw new Error('User Already Exist')
                         } else {
-                            return true;
+                            return false;
                         }
                     });
                 }),
