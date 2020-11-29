@@ -6,11 +6,25 @@ import { Jobs } from './jobs/Jobs';
 import CommentRouter from './modules/comment/comment.router';
 import PostRouter from './modules/post/post.router';
 import UserRouter from './modules/user/user.router';
-import * as Cors from 'cors'
+import * as cors from 'cors';
 
 export class Server {
 
     public app: express.Application = express();
+    public options: cors.CorsOptions = {
+        allowedHeaders: [
+          'Origin',
+          'X-Requested-With',
+          'Content-Type',
+          'Accept',
+          'X-Access-Token',
+        ],
+        credentials: true,
+        methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+        // origin: 'http://localhost:4200',
+        preflightContinue: false,
+      };
+    
 
     constructor() {
         this.setConfiguration();
@@ -27,12 +41,12 @@ export class Server {
     setConfiguration() {
         this.connectMongodb();
         this.configureBodyParser();
-        Jobs.runRequiredJobs();
-        this.app.use(Cors);
+        Jobs.runRequiredJobs();        
        
     }
 
     configureBodyParser() {
+        this.app.use(cors(this.options));
         this.app.use(bodyParser.json({ limit: '50mb' }));
         this.app.use(bodyParser.urlencoded({ extended: true }))
     }
