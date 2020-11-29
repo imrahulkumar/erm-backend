@@ -7,7 +7,7 @@ export class UserValidators {
 
     static signup() {
         return [
-            body('email', 'Email is Required').isEmail()
+            body('email', 'Email is Requiredzz').isEmail()
                 .custom((emails, { req }) => {
                     return User.findOne({ email: emails }).then((user) => {
                         if (user) {
