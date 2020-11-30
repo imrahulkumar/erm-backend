@@ -21,7 +21,7 @@ export class Server {
         ],
         credentials: true,
         methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-        // origin: 'http://localhost:4200',
+        origin: 'http://localhost:4200',
         preflightContinue: false,
       };
     
@@ -46,8 +46,9 @@ export class Server {
     }
 
     configureBodyParser() {
-        this.app.use(cors(this.options));
+        this.app.use(cors());
         this.app.use(bodyParser.json());
+        this.app.use(express.json());
         this.app.use(bodyParser.text());
         this.app.use(bodyParser.urlencoded({ extended: true }))
     }

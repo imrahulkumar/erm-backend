@@ -44,7 +44,7 @@ export class UserController {
                 data['address'] = []
                 data['address'].push(newAddress);
                 let user = await Promise.all([new User(data).save(), newAddress.save()]);
-                res.send(user);
+                res.send(user[0]);
             }
 
 
