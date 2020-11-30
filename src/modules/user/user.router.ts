@@ -3,6 +3,8 @@ import { UserController } from './user.controller';
 import { GlobalCheckErrorMiddleWare } from '../../middleware/CheckError';
 import { Utils } from '../../utils/Utils';
 import { UserValidators } from './user.validators';
+import * as cors from 'cors';
+import * as bodyParser from 'body-parser';
 
 class UserRouter {
 
@@ -11,6 +13,9 @@ class UserRouter {
 
     constructor() {
         this.router = Router();
+        // this.router.use();
+        this.router.use(cors());
+        this.router.use(bodyParser.json());
 
         this.getRoutes();
         this.postRoutes();
