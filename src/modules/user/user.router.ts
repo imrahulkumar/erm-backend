@@ -67,6 +67,12 @@ class UserRouter {
             GlobalCheckErrorMiddleWare.checkError,
             UserController.resetPassword)
 
+        //PASSWORD UPDATE
+        this.router.post('/password/update',
+        GlobalCheckErrorMiddleWare.authentication,
+            UserValidators.passwordUpdate(),
+            GlobalCheckErrorMiddleWare.checkError,
+            UserController.passwordUpdate)
 
     }
     patchRoutes() { }

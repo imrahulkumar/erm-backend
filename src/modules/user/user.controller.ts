@@ -174,6 +174,25 @@ export class UserController {
         }
     }
 
+    static async passwordUpdate(req, res, next) {
+        let email = req.body.email;
+        let oldPassword = req.body.oldPassword;
+        let newPassword = req.body.newPassword;
+
+        try {
+            let user = await User.findOneAndUpdate({ email: email, password: oldPassword },
+                { password: newPassword }, { new: true })
+
+            if (user) {
+                res.send(user);
+            } else {
+                throw new Error('User not exist and password is not updated.')
+            }
+
+        } catch (error) {
+            next(error)
+        }
+    }
 
 
 

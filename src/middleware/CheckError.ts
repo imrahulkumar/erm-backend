@@ -16,18 +16,17 @@ export class GlobalCheckErrorMiddleWare {
     static async authentication(req, res, next) {
         const authHeader = req.headers.authorization;
         const token = authHeader ? authHeader.slice(7, authHeader.length) : null;
-
         try {
             req.errorStatus = 401;
             Jwt.verify(token, getEnvironmentVariable().jwt_secret, (err, decoded) => {
 
-                if (err) {
+                if (err) {                    
                     next(err)
                 }
-                else if (!decoded) {
+                else if (!decoded) {                   
                     next(new Error('User Not Authorised'))
                 }
-                else {
+                else {                   
                     req.user = decoded;
                     next();
                 }
@@ -35,7 +34,7 @@ export class GlobalCheckErrorMiddleWare {
             })
         }
         catch (e) {
-
+            next(e)
         }
 
     }

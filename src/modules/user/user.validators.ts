@@ -110,5 +110,20 @@ export class UserValidators {
         ]
     }
 
+    static passwordUpdate() {
+        return [
+            body('email', 'Email is required').isEmail().custom((email, { req }) => {
+                return User.findOne({ email: email }).then((user: any) => {
+                    if (user) {
+                        return true
+                    } else {
+                        throw new Error('User Not Exist')
+                    }
+                });
+            }),
+            body('oldPassword', 'Old Password is Required').isString(),
+            body('newPassword', 'New Password is required').isString()
+        ]
+    }
 
 }
