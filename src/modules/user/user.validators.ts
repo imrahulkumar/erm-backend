@@ -139,4 +139,10 @@ export class UserValidators {
         ]
     }
 
+    static deleteProfilePic() {
+        return [
+            body('profile_pic', 'Profile Pic Name is Required').isString()
+        ]
+    }
+
 }

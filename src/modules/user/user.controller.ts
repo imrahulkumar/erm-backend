@@ -198,15 +198,22 @@ export class UserController {
         try {
 
             const userId = req.user._id;
-            const fileUrl = `${getEnvironmentVariable().image_path}${req.file.path}`; 
-            console.log(req.user)
+            const fileUrl = `${getEnvironmentVariable().image_path}${req.file.path}`;
             const user = await User.findOneAndUpdate({ _id: userId },
                 { updated_at: new Date(), profile_pic_url: fileUrl }, { new: true })
-            console.log(user)
             res.send(user)
 
         } catch (e) {
             next(e)
+        }
+    }
+
+    static async deleteProfilePic(req, res, next) {
+        try {
+            let deletedFile = await Utils.deleteFile(req, res, next);
+            res.send(deletedFile)
+        } catch (error) {
+            next(error)
         }
     }
 

@@ -73,19 +73,26 @@ class UserRouter {
             UserValidators.passwordUpdate(),
             GlobalCheckErrorMiddleWare.checkError,
             UserController.passwordUpdate)
-      
+
 
     }
-    patchRoutes() { 
-          // COMMON IMAGE UPLOADER    
-          this.router.patch('/upload/profilePic/upload',
-          GlobalCheckErrorMiddleWare.authentication,
-          new Utils().multer.single('profile_pic'),         
-          UserValidators.updateProfilePic(),
-          GlobalCheckErrorMiddleWare.checkError,
-          UserController.updateProfilePic)
+    patchRoutes() {
+        // COMMON IMAGE UPLOADER    
+        this.router.patch('/upload/profilePic/upload',
+            GlobalCheckErrorMiddleWare.authentication,
+            new Utils().multer.single('profile_pic'),
+            UserValidators.updateProfilePic(),
+            GlobalCheckErrorMiddleWare.checkError,
+            UserController.updateProfilePic)
     }
-    deleteRoutes() { }
+    deleteRoutes() {
+        //DELETE IMAGE 
+        this.router.post('/delete/profilePic/upload',
+            GlobalCheckErrorMiddleWare.authentication,
+            UserValidators.deleteProfilePic(),
+            GlobalCheckErrorMiddleWare.checkError,
+            UserController.deleteProfilePic)
+    }
 
 }
 
