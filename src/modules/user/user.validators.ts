@@ -94,7 +94,7 @@ export class UserValidators {
     }
 
 
-    static forgotPassword() {
+    static resetPassword() {
         return [
             body('email', 'Email is required').isEmail().custom((email, { req }) => {
                 return User.findOne({ email: email }).then((user: any) => {

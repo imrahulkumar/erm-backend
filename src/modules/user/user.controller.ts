@@ -149,10 +149,10 @@ export class UserController {
 
     }
 
-    static async forgotPassword(req, res, next) {
+    static async resetPassword(req, res, next) {
         let email = req.body.email;
         let verification_token = req.body.token;
-        let password = req.passord;
+        let password = req.body.password;
 
         try {
             let user = await User.findOneAndUpdate(

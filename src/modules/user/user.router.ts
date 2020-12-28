@@ -62,10 +62,10 @@ class UserRouter {
             UserController.login)
 
         //FORGOT PASSWORD ADD NEW PASSWORD
-        this.router.post('/forgot/password',
-            UserValidators.forgotPassword(),
+        this.router.post('/reset/password',
+            UserValidators.resetPassword(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.forgotPassword)
+            UserController.resetPassword)
 
 
     }
