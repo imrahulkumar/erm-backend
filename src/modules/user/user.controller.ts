@@ -186,7 +186,7 @@ export class UserController {
             if (user) {
                 res.send(user);
             } else {
-                throw new Error('User not exist and password is not updated.')
+                throw new Error('Please enter correct email and old password. Password is not updated.')
             }
 
         } catch (error) {
