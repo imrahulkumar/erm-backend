@@ -3,8 +3,6 @@ import * as  express from 'express';
 import * as mongoose from 'mongoose';
 import { getEnvironmentVariable } from './environments/env';
 import { Jobs } from './jobs/Jobs';
-import CommentRouter from './modules/comment/comment.router';
-import PostRouter from './modules/post/post.router';
 import UserRouter from './modules/user/user.router';
 import * as cors from 'cors';
 
@@ -65,8 +63,6 @@ export class Server {
     setRoutes() {
         this.app.use('/src/uploads', express.static('src/uploads'))
         this.app.use('/api/erm/user', UserRouter);
-        // this.app.use('/api/post', PostRouter);
-        // this.app.use('/api/comment',CommentRouter);
     }
 
     error404Handler() {

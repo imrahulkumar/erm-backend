@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema(
         dob: { type: Date, required: true },
         password: { type: String, required: true },
         companyName: { type: String, required: true },
+        profile_pic_url: { type: String, required: true },
         address: [{ type: mongoose.Types.ObjectId, ref: 'address' }],
         verified: { type: Boolean, required: true },
         

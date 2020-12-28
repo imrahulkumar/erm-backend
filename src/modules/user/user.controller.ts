@@ -194,7 +194,21 @@ export class UserController {
         }
     }
 
+    static async updateProfilePic(req, res, next) {
+        try {
 
+            const userId = req.user._id;
+            const fileUrl = `${getEnvironmentVariable().image_path}${req.file.path}`; 
+            console.log(req.user)
+            const user = await User.findOneAndUpdate({ _id: userId },
+                { updated_at: new Date(), profile_pic_url: fileUrl }, { new: true })
+            console.log(user)
+            res.send(user)
+
+        } catch (e) {
+            next(e)
+        }
+    }
 
 
 
