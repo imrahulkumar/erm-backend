@@ -4,19 +4,15 @@ import * as Jwt from 'jsonwebtoken';
 import { getEnvironmentVariable } from '../../environments/env';
 import { Emailjs } from '../../utils/Emailjs';
 import { EmailTemplate } from '../../utils/TemplateEmailjs';
-
-
-import * as Cheerio from 'cheerio';
-import * as Request from 'request';
 import { signupObj } from '../../utils/Helper';
 import { Picker } from '../../utils/Picker';
 import address from '../address/address.modal';
+import profileDetail from '../profile/profile.modal';
 
 export class UserController {
 
 
     static async signup(req, res, next) {
-        console.log(req.body)
         let d = req.body;
         let data = Picker.objPicker(d, signupObj);
         const verificationToken = Utils.generateVerificationToken();
@@ -29,6 +25,8 @@ export class UserController {
                 let user = await new User(data).save();
                 res.send(user);
             } else {
+
+                // TO ASSIGN THE ADDRESS IN ADDRESS MODEL SCHEMA
                 const newAddress = new address({
                     location: data['newAddress'],
                     created_at: new Date(),
@@ -36,7 +34,17 @@ export class UserController {
                 });
                 data['address'] = []
                 data['address'].push(newAddress);
-                let user = await Promise.all([new User(data).save(), newAddress.save()]);
+
+                // TO ASSIGN THE PROFILE DETAILS INFORMATION IN PROFILE DETAILS SCHEMA
+                const newProfileDetail = new profileDetail({
+                    doj: new Date(),
+                    panCard: "",
+                    adharCard: "",
+                    designation: "",
+                    income: ""
+                });
+                data['userDetails'] = newProfileDetail;
+                let user = await Promise.all([new User(data).save(), newAddress.save(), newProfileDetail.save()]);
                 res.send(user[0]);
             }
             //SEND VERIFICATION EMAIL
