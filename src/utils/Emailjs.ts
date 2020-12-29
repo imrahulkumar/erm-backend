@@ -9,14 +9,15 @@ export class Emailjs {
             service_id: getEnvironmentVariable().emailjs_com.service_id,
             user_id: getEnvironmentVariable().emailjs_com.user_id,
             template_id: data.template_id,
-            template_params: data.template_params,
+            template_params: data.template_params
+
 
         })
             .then(function (response) {
                 console.log("response");
             })
             .catch(function (error) {
-                console.log("error");
+                console.log("Mail Error");
             });
     }
 

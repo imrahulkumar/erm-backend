@@ -5,7 +5,7 @@ export const DevEnvironment: Environment = {
     jwt_secret: "test1",
     image_path:"http://localhost:5000/",
     emailjs_com: {
-        service_id: 'service_k65149f',
+        service_id: 'service_2h9yazf',
         user_id: "user_WdbGMLp6Y44TlgxsfVZH7"
     }
 }
