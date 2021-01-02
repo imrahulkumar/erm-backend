@@ -145,4 +145,19 @@ export class UserValidators {
         ]
     }
 
+
+    static profileEdit() {
+        return [
+            body('email', 'Email is Required').isString(),
+            body('name', 'Name is Required').isString(),
+            body('dob', 'DOB is Required').isString(),
+
+            body('doj', 'DOJ is Required').isString(),
+            body('panCard', 'PAN card is Required').isString(),
+            body('adharCard', 'Adhar Card is Required').isString(),
+            body('designation', 'Designation is Required').isString(),
+            body('income', 'Income is Required').isString()            
+        ]
+    }
+
 }

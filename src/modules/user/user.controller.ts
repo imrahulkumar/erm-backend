@@ -4,7 +4,7 @@ import * as Jwt from 'jsonwebtoken';
 import { getEnvironmentVariable } from '../../environments/env';
 import { Emailjs } from '../../utils/Emailjs';
 import { EmailTemplate } from '../../utils/TemplateEmailjs';
-import { signupObj } from '../../utils/Helper';
+import { adminUserDetails, signupObj, userObj } from '../../utils/Helper';
 import { Picker } from '../../utils/Picker';
 import address from '../address/address.modal';
 import profileDetail from '../profile/profile.modal';
@@ -225,7 +225,6 @@ export class UserController {
         }
     }
 
-
     static async profile(req, res, next) {
         console.log(req.user)
         let _id = req.user._id;
@@ -237,7 +236,28 @@ export class UserController {
         }
     }
 
+    static async profileEdit(req, res, next) {
+        
+        let d: any;
+        let authData = req.user;
+        let userData = Picker.objPicker(req.body, userObj);
+        let user: any = await User.findByIdAndUpdate({ _id: authData._id }, userData, { new: true });
 
+        if (user.role == 'superAdmin') {
+            let userDetailId = user.userDetails;
+            let profileDetailData = Picker.objPicker(req.body, adminUserDetails);
+            let profileData = await profileDetail.findByIdAndUpdate({ _id: userDetailId }, profileDetailData, { new: true })
+            d = { user, profileData };
+        }
+
+        res.send(d);
+
+        try {
+
+        } catch (error) {
+            next(error)
+        }
+    }
 
 
 

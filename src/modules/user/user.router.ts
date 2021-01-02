@@ -78,6 +78,15 @@ class UserRouter {
             UserController.passwordUpdate)
 
 
+        //UPDATE PROFILE DETAILS
+        this.router.post('/profile/edit',
+        GlobalCheckErrorMiddleWare.authentication,
+        UserValidators.profileEdit(),
+        GlobalCheckErrorMiddleWare.checkError,
+        UserController.profileEdit)
+
+
+
     }
     patchRoutes() {
         // COMMON IMAGE UPLOADER    
