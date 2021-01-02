@@ -44,7 +44,10 @@ class UserRouter {
             GlobalCheckErrorMiddleWare.checkError,
             UserController.triggerForgotPassword)
 
-
+        // GET PROFILE DETAILS
+        this.router.get('/profile',
+            GlobalCheckErrorMiddleWare.authentication,
+            UserController.profile)
 
     }
     postRoutes() {

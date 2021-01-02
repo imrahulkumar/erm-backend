@@ -226,6 +226,16 @@ export class UserController {
     }
 
 
+    static async profile(req, res, next) {
+        console.log(req.user)
+        let _id = req.user._id;
+        try {
+            let user = await User.find({ _id: _id }).populate(['userDetails', 'address'])
+            res.send(user);
+        } catch (error) {
+            next(error)
+        }
+    }
 
 
 
