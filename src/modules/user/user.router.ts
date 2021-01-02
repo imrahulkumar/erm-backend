@@ -30,24 +30,24 @@ class UserRouter {
         this.router.get('/verify/signup',
             UserValidators.verifySignup(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.verifySignup)
+            UserController.verifySignup);
 
         // RESEND VERIFICATION TOKEN FOR SIGNUP
         this.router.get('/resend/signup/verificationToken',
             UserValidators.resendSignupVerificationToken(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.resendSignupVerificationToken)
+            UserController.resendSignupVerificationToken);
 
         // FORGOT PASSWORD
         this.router.get('/forgot/password',
             UserValidators.resendSignupVerificationToken(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.triggerForgotPassword)
+            UserController.triggerForgotPassword);
 
         // GET PROFILE DETAILS
         this.router.get('/profile',
             GlobalCheckErrorMiddleWare.authentication,
-            UserController.profile)
+            UserController.profile);
 
     }
     postRoutes() {
@@ -56,34 +56,43 @@ class UserRouter {
         this.router.post('/signup',
             UserValidators.signup(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.signup)
+            UserController.signup);
 
         // LOGIN USER
         this.router.post('/login',
             UserValidators.login(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.login)
+            UserController.login);
 
         //FORGOT PASSWORD ADD NEW PASSWORD
         this.router.post('/reset/password',
             UserValidators.resetPassword(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.resetPassword)
+            UserController.resetPassword);
 
         //PASSWORD UPDATE
         this.router.post('/password/update',
             GlobalCheckErrorMiddleWare.authentication,
             UserValidators.passwordUpdate(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.passwordUpdate)
+            UserController.passwordUpdate);
 
 
         //UPDATE PROFILE DETAILS
         this.router.post('/profile/edit',
-        GlobalCheckErrorMiddleWare.authentication,
-        UserValidators.profileEdit(),
-        GlobalCheckErrorMiddleWare.checkError,
-        UserController.profileEdit)
+            GlobalCheckErrorMiddleWare.authentication,
+            UserValidators.profileEdit(),
+            GlobalCheckErrorMiddleWare.checkError,
+            UserController.profileEdit);
+
+
+        //ADD EMPLOYEE
+        this.router.post('/add/employee',
+            GlobalCheckErrorMiddleWare.authentication,
+            UserValidators.profileEdit(),
+            GlobalCheckErrorMiddleWare.checkError,
+            UserController.profileEdit);
+
 
 
 
@@ -95,7 +104,7 @@ class UserRouter {
             new Utils().multer.single('profile_pic'),
             UserValidators.updateProfilePic(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.updateProfilePic)
+            UserController.updateProfilePic);
     }
     deleteRoutes() {
         //DELETE IMAGE 
@@ -103,7 +112,7 @@ class UserRouter {
             GlobalCheckErrorMiddleWare.authentication,
             UserValidators.deleteProfilePic(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.deleteProfilePic)
+            UserController.deleteProfilePic);
     }
 
 }

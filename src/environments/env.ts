@@ -7,6 +7,13 @@ export interface Environment {
     jwt_secret: string;
     image_path: string;
     emailjs_com: { service_id: string, user_id: string };
+    email_oauth: {
+        CLIENT_ID: string;
+        CLEINT_SECRET: string;
+        REDIRECT_URI: string;
+        REFRESH_TOKEN: string;
+
+    }
 }
 
 

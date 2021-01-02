@@ -8,7 +8,9 @@ import { adminUserDetails, signupObj, userObj } from '../../utils/Helper';
 import { Picker } from '../../utils/Picker';
 import address from '../address/address.modal';
 import profileDetail from '../profile/profile.modal';
-
+import { emailOtpHtmp } from '../../utils/emailTemplate/email-otp'
+import { EmailOauth } from '../../utils/EmailOauth';
+import { emailInviteHtml } from '../../utils/emailTemplate/invite-employee';
 export class UserController {
 
 
@@ -237,7 +239,7 @@ export class UserController {
     }
 
     static async profileEdit(req, res, next) {
-        
+
         let d: any;
         let authData = req.user;
         let userData = Picker.objPicker(req.body, userObj);
@@ -249,6 +251,27 @@ export class UserController {
             let profileData = await profileDetail.findByIdAndUpdate({ _id: userDetailId }, profileDetailData, { new: true })
             d = { user, profileData };
         }
+
+
+        // // FOR OTP
+        // let otp: any = {
+        //     to: 'rahulgbu13@gmail.com',
+        //     subject: 'Hello',
+        //     text: emailOtpHtmp("1234"),
+        //     html: emailOtpHtmp("1234")
+        // }
+        // EmailOauth.sendEmail(otp);
+
+
+        //FOR INVITE LINK
+    //    let html =  emailInviteHtml('Admin', 'Parangat Technology', 'rahul.k@parangat.com', '12345', 'http://localhost:42000')
+    //     let invite: any = {
+    //         to: 'rahulgbu13@gmail.com',
+    //         subject: 'Hello',
+    //         text: html,
+    //         html: html
+    //     }
+    //     EmailOauth.sendEmail(invite);
 
         res.send(d);
 
