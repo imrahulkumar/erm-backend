@@ -8,4 +8,5 @@ export declare class UserValidators {
     static updateProfilePic(): import("express-validator").ValidationChain[];
     static deleteProfilePic(): import("express-validator").ValidationChain[];
     static profileEdit(): import("express-validator").ValidationChain[];
+    static addEmployee(): import("express-validator").ValidationChain[];
 }

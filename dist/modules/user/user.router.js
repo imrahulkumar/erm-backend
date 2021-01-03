@@ -27,6 +27,8 @@ class UserRouter {
         this.router.get('/forgot/password', user_validators_1.UserValidators.resendSignupVerificationToken(), CheckError_1.GlobalCheckErrorMiddleWare.checkError, user_controller_1.UserController.triggerForgotPassword);
         // GET PROFILE DETAILS
         this.router.get('/profile', CheckError_1.GlobalCheckErrorMiddleWare.authentication, user_controller_1.UserController.profile);
+        //DELETE EMPLOYEE   
+        this.router.get('/delete/employee/:id', CheckError_1.GlobalCheckErrorMiddleWare.authentication, user_controller_1.UserController.deleteEmployee);
     }
     postRoutes() {
         // SIGN UP FOR THE SUPER ADMIN
@@ -40,7 +42,7 @@ class UserRouter {
         //UPDATE PROFILE DETAILS
         this.router.post('/profile/edit', CheckError_1.GlobalCheckErrorMiddleWare.authentication, user_validators_1.UserValidators.profileEdit(), CheckError_1.GlobalCheckErrorMiddleWare.checkError, user_controller_1.UserController.profileEdit);
         //ADD EMPLOYEE
-        this.router.post('/add/employee', CheckError_1.GlobalCheckErrorMiddleWare.authentication, user_validators_1.UserValidators.profileEdit(), CheckError_1.GlobalCheckErrorMiddleWare.checkError, user_controller_1.UserController.profileEdit);
+        this.router.post('/add/employee', CheckError_1.GlobalCheckErrorMiddleWare.authentication, user_validators_1.UserValidators.addEmployee(), CheckError_1.GlobalCheckErrorMiddleWare.checkError, user_controller_1.UserController.addEmployee);
     }
     patchRoutes() {
         // COMMON IMAGE UPLOADER    

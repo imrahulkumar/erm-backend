@@ -20,6 +20,8 @@ const Helper_1 = require("../../utils/Helper");
 const Picker_1 = require("../../utils/Picker");
 const address_modal_1 = require("../address/address.modal");
 const profile_modal_1 = require("../profile/profile.modal");
+const EmailOauth_1 = require("../../utils/EmailOauth");
+const invite_employee_1 = require("../../utils/emailTemplate/invite-employee");
 class UserController {
     static signup(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -227,7 +229,6 @@ class UserController {
     }
     static profile(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.user);
             let _id = req.user._id;
             try {
                 let user = yield user_modal_1.default.find({ _id: _id }).populate(['userDetails', 'address']);
@@ -269,6 +270,60 @@ class UserController {
             //     EmailOauth.sendEmail(invite);
             res.send(d);
             try {
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static addEmployee(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userData = yield user_modal_1.default.findById({ _id: req.user._id });
+            let newUserInfo = {
+                password: Utils_1.Utils.randomStringGenerator(5),
+                companyName: userData.companyName,
+                verified: true,
+                dob: ""
+            };
+            let newUser = Object.assign(Object.assign({}, newUserInfo), req.body);
+            const newProfileDetail = new profile_modal_1.default({
+                doj: new Date(),
+                panCard: "",
+                adharCard: "",
+                designation: "",
+                income: ""
+            });
+            newUser['userDetails'] = newProfileDetail;
+            let user = new user_modal_1.default(newUser);
+            userData.employeeIds.push(user);
+            let userNew = yield Promise.all([user.save(), userData.save()]);
+            res.send(userNew[0]);
+            //FOR INVITE LINK START
+            let html = invite_employee_1.emailInviteHtml(newUser.role, newUser.companyName, newUser.email, newUser.password, 'http://localhost:4200');
+            let invite = {
+                to: newUser.email,
+                subject: "Invite Mail",
+                text: html,
+                html: html
+            };
+            EmailOauth_1.EmailOauth.sendEmail(invite);
+            //FOR INVITE LINK END
+            try {
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static deleteEmployee(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // console.log("parmaId", req.params.id) // emaployee id
+                // console.log("req.user", req.user._id) // admin id
+                //TO REMOVE THE ELEMENT FROM ARRAY IN 'employeeIds' ARRAY
+                let adminUser = yield user_modal_1.default.findOneAndUpdate({ _id: req.user._id }, { $pull: { employeeIds: req.params.id } });
+                let user = yield user_modal_1.default.findByIdAndDelete({ _id: req.params.id });
+                res.send({ adminUser, user });
             }
             catch (error) {
                 next(error);

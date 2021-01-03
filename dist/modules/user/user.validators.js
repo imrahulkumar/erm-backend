@@ -154,5 +154,12 @@ class UserValidators {
             express_validator_1.body('income', 'Income is Required').isString()
         ];
     }
+    static addEmployee() {
+        return [
+            express_validator_1.body('email', 'Email is Required').isString(),
+            express_validator_1.body('name', 'Name is Required').isString(),
+            express_validator_1.body('role', 'Role is Required').isString()
+        ];
+    }
 }
 exports.UserValidators = UserValidators;

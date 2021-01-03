@@ -10,4 +10,6 @@ export declare class UserController {
     static deleteProfilePic(req: any, res: any, next: any): Promise<void>;
     static profile(req: any, res: any, next: any): Promise<void>;
     static profileEdit(req: any, res: any, next: any): Promise<void>;
+    static addEmployee(req: any, res: any, next: any): Promise<void>;
+    static deleteEmployee(req: any, res: any, next: any): Promise<void>;
 }
