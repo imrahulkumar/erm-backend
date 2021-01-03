@@ -7,7 +7,7 @@
     "start-dev": "nodemon --exec ts-node src/index.ts",
     "start-prod": "node dist/index.js",
     "create-bundle": "tsc",
-    "start": "tsc && node dist/index.js"
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
