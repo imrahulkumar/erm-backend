@@ -78,26 +78,25 @@ export class Utils {
     }
 
     static async deleteFile(req, res, next) {
-       
-            return new Promise((resolve,reject)=>{
-                try {
-                    let url = getEnvironmentVariable().image_path;
-                    let fileName = req.body.profile_pic;
-                    let fileDestination = fileName.replace(url, '');                    
-                    let isExist = fs.statSync(fileDestination);                   
-                    if (isExist.isFile()) {
-                        fs.unlinkSync(fileDestination);
-                        resolve({ status: 200, message: 'deleted succesfully' })
-                    } else {
-                        throw new Error('Not Exist')
-                    }
-                } catch (error) {
-                    next(error)
-                }
-            })       
-        
 
+        return new Promise((resolve, reject) => {
+            try {
+                let url = getEnvironmentVariable().image_path;
+                let fileName = req.body.profile_pic;
+                let fileDestination = fileName.replace(url, '');
+                let isExist = fs.statSync(fileDestination);
+                if (isExist.isFile()) {
+                    fs.unlinkSync(fileDestination);
+                    resolve({ status: 200, message: 'deleted succesfully' })
+                } else {
+                    throw new Error('Not Exist')
+                }
+            } catch (error) {
+                next(error)
+            }
+        })
     }
+
 
 }
 

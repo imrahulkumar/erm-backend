@@ -160,4 +160,12 @@ export class UserValidators {
         ]
     }
 
+    static addEmployee() {
+        return [
+            body('email', 'Email is Required').isString(),
+            body('name', 'Name is Required').isString(),
+            body('role', 'Role is Required').isString()          
+        ]
+    }
+
 }

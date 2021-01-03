@@ -49,6 +49,11 @@ class UserRouter {
             GlobalCheckErrorMiddleWare.authentication,
             UserController.profile);
 
+
+         //DELETE EMPLOYEE   
+         this.router.get('/delete/employee/:id',
+         GlobalCheckErrorMiddleWare.authentication,
+         UserController.deleteEmployee);
     }
     postRoutes() {
 
@@ -89,9 +94,9 @@ class UserRouter {
         //ADD EMPLOYEE
         this.router.post('/add/employee',
             GlobalCheckErrorMiddleWare.authentication,
-            UserValidators.profileEdit(),
+            UserValidators.addEmployee(),
             GlobalCheckErrorMiddleWare.checkError,
-            UserController.profileEdit);
+            UserController.addEmployee);
 
 
 

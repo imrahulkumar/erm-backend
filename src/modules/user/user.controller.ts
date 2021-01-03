@@ -228,7 +228,7 @@ export class UserController {
     }
 
     static async profile(req, res, next) {
-        console.log(req.user)
+
         let _id = req.user._id;
         try {
             let user = await User.find({ _id: _id }).populate(['userDetails', 'address'])
@@ -264,14 +264,14 @@ export class UserController {
 
 
         //FOR INVITE LINK
-    //    let html =  emailInviteHtml('Admin', 'Parangat Technology', 'rahul.k@parangat.com', '12345', 'http://localhost:42000')
-    //     let invite: any = {
-    //         to: 'rahulgbu13@gmail.com',
-    //         subject: 'Hello',
-    //         text: html,
-    //         html: html
-    //     }
-    //     EmailOauth.sendEmail(invite);
+        //    let html =  emailInviteHtml('Admin', 'Parangat Technology', 'rahul.k@parangat.com', '12345', 'http://localhost:42000')
+        //     let invite: any = {
+        //         to: 'rahulgbu13@gmail.com',
+        //         subject: 'Hello',
+        //         text: html,
+        //         html: html
+        //     }
+        //     EmailOauth.sendEmail(invite);
 
         res.send(d);
 
@@ -283,6 +283,79 @@ export class UserController {
     }
 
 
+    static async addEmployee(req, res, next) {
+
+        let userData: any = await User.findById({ _id: req.user._id })
+
+        let newUserInfo = {
+            password: Utils.randomStringGenerator(5),
+            companyName: userData.companyName,
+            verified: true,
+            dob: ""
+        }
+
+        let newUser = { ...newUserInfo, ...req.body };
+
+
+        const newProfileDetail = new profileDetail({
+            doj: new Date(),
+            panCard: "",
+            adharCard: "",
+            designation: "",
+            income: ""
+        });
+
+        newUser['userDetails'] = newProfileDetail;
+
+        let user = new User(newUser);
+
+        userData.employeeIds.push(user)
+
+        let userNew = await Promise.all([user.save(), userData.save()]);
+
+        res.send(userNew[0])
+
+        //FOR INVITE LINK START
+        let html = emailInviteHtml(newUser.role,
+            newUser.companyName,
+            newUser.email,
+            newUser.password,
+            'http://localhost:4200')
+
+        let invite: any = {
+            to: newUser.email,
+            subject: "Invite Mail",
+            text: html,
+            html: html
+        }
+        EmailOauth.sendEmail(invite);
+        //FOR INVITE LINK END
+
+        try {
+
+        } catch (error) {
+            next(error)
+        }
+
+    }
+
+    static async deleteEmployee(req, res, next) {
+
+        try {
+            // console.log("parmaId", req.params.id) // emaployee id
+            // console.log("req.user", req.user._id) // admin id
+
+            //TO REMOVE THE ELEMENT FROM ARRAY IN 'employeeIds' ARRAY
+            let adminUser: any = await User.findOneAndUpdate({ _id: req.user._id }, { $pull: { employeeIds: req.params.id } });
+
+            let user: any = await User.findByIdAndDelete({ _id: req.params.id });
+
+            res.send({ adminUser, user })
+
+        } catch (error) {
+            next(error)
+        }
+    }
 
 
 }
